@@ -11,7 +11,7 @@ STATUS_URL = 'http://192.168.100.1/cgi-bin/status_cgi'
 def get_strengths():
     try:
         source = requests.get(STATUS_URL, timeout=5)
-        tables = BeautifulSoup(source.text, 'lxml').find_all('table')
+        tables = BeautifulSoup(source.text, 'html.parser').find_all('table')
         status = tables[-1].find_all('tr')[2].find_all('td')[2].text
     except requests.exceptions.Timeout:
         return {'error': 'timeout'}
