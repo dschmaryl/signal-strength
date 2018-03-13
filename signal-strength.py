@@ -13,12 +13,12 @@ def get_strengths():
         tables = BeautifulSoup(source.text, 'html.parser').find_all('table')
         status = tables[-1].find_all('tr')[2].find_all('td')[2].text
     except requests.exceptions.Timeout:
-        return {'error': 'timeout'}
-    except:
-        return {'error': 'getting status'}
+        return {'error': 'timed out'}
+    except IndexError:
+        return {'error': 'could not get status'}
 
     if status != 'Up':
-        return {'error': 'connection down'}
+        return {'error': 'wan connection is down'}
 
     # parse table for the strength/snr at each frequency
     rows = tables[1].find_all('tr')[1:9]
