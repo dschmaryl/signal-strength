@@ -12,6 +12,8 @@ def get_strengths():
         source = requests.get(STATUS_URL, timeout=5)
         tables = BeautifulSoup(source.text, 'html.parser').find_all('table')
         status = tables[-1].find_all('tr')[2].find_all('td')[2].text
+    except OSError:
+        return {'error': 'no route to host'}
     except requests.exceptions.Timeout:
         return {'error': 'timed out'}
     except IndexError:
