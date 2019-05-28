@@ -23,7 +23,7 @@ def get_strengths():
         return {'error': 'wan connection is down'}
 
     # parse table for the strength/snr at each frequency
-    rows = tables[1].find_all('tr')[1:9]
+    rows = tables[1].find_all('tr')[1:]
     strengths, noise_ratios = [], []
     for row in rows:
         cells = row.find_all('td')
